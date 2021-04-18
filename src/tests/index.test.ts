@@ -7,7 +7,7 @@ afterAll(async () => {
 });
 
 describe('Testing Index', () => {
-  describe('[GET] /', () => {
+  describe('[GET] /api', () => {
     it('response statusCode 200', () => {
       const indexRoute = new IndexRoute();
       const app = new App([indexRoute]);

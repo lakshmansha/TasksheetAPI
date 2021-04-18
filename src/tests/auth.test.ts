@@ -10,7 +10,7 @@ afterAll(async () => {
 });
 
 describe('Testing Auth', () => {
-  describe('[POST] /signup', () => {
+  describe('[POST] /api/auth/signup', () => {
     it('response should have the Create userData', async () => {
       const userData: CreateUserDto = {
         email: 'test@email.com',
@@ -33,7 +33,7 @@ describe('Testing Auth', () => {
     });
   });
 
-  describe('[POST] /login', () => {
+  describe('[POST] /api/auth/login', () => {
     it('response should have the Set-Cookie header with the Authorization token', async () => {
       const userData: CreateUserDto = {
         email: 'test@email.com',
@@ -58,7 +58,7 @@ describe('Testing Auth', () => {
     });
   });
 
-  // describe('[POST] /logout', () => {
+  // describe('[POST] /api/auth/logout', () => {
   //   it('logout Set-Cookie Authorization=; Max-age=0', async () => {
   //     const userData: User = {
   //       _id: '60706478aad6c9ad19a31c84',
