@@ -8,9 +8,11 @@ import App from '@app';
 import AuthRoute from '@routes/auth.route';
 import IndexRoute from '@routes/index.route';
 import UsersRoute from '@routes/users.route';
+import ClientsRoute from '@routes/clients.route';
+import ProjectsRoute from '@routes/projects.route';
+
 import IndexPageRoute from '@routes/page/index.page.route';
 import LoginPageRoute from '@routes/page/login.page.route';
-import ClientsRoute from '@routes/clients.route';
 
 validateEnv();
 
@@ -21,6 +23,7 @@ Routes.push(new IndexRoute());
 Routes.push(new UsersRoute());
 Routes.push(new AuthRoute());
 Routes.push(new ClientsRoute());
+Routes.push(new ProjectsRoute());
 
 // Page Routes
 Routes.push(new IndexPageRoute());

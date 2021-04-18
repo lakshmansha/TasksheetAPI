@@ -8,7 +8,7 @@ afterAll(async () => {
   await new Promise<void>(resolve => setTimeout(() => resolve(), 500));
 });
 
-describe('Testing Users', () => {
+describe('Testing Clients', () => {
   describe('[GET] /api/clients', () => {
     it('response fineAll clients', async () => {
       const clientsRoute = new ClientsRoute();
@@ -38,6 +38,25 @@ describe('Testing Users', () => {
     });
   });
 
+  describe('[GET] /api/clients/search/:code', () => {
+    it('response findOne Client', async () => {
+      const clientCode = 'CL001';
+
+      const clientsRoute = new ClientsRoute();
+      const clients = clientsRoute.clientsController.clientService.clients;
+
+      clients.findOne = jest.fn().mockReturnValue({
+        _id: 'qpwoeiruty',
+        clientCode: 'CL001',
+        clientName: 'Invatu Tech',
+      });
+
+      (mongoose as any).connect = jest.fn();
+      const app = new App([clientsRoute]);
+      return request(app.getServer()).get(`${clientsRoute.path}/search/${clientCode}`).expect(200);
+    });
+  });
+
   describe('[GET] /api/clients/:id', () => {
     it('response findOne Client', async () => {
       const clientId = 'qpwoeiruty';
@@ -58,7 +77,7 @@ describe('Testing Users', () => {
   });
 
   describe('[POST] /api/clients', () => {
-    it('response Create User', async () => {
+    it('response Create Client', async () => {
       const clientData: CreateClientDto = {
         clientCode: 'CL001',
         clientName: 'Tech Val',
@@ -81,7 +100,7 @@ describe('Testing Users', () => {
   });
 
   describe('[PUT] /api/clients/:id', () => {
-    it('response Update User', async () => {
+    it('response Update Client', async () => {
       const clientId = '60706478aad6c9ad19a31c84';
       const clientData: CreateClientDto = {
         clientCode: 'CL001',
@@ -112,7 +131,7 @@ describe('Testing Users', () => {
   });
 
   describe('[DELETE] /api/clients/:id', () => {
-    it('response Delete User', async () => {
+    it('response Delete Client', async () => {
       const clientId = '60706478aad6c9ad19a31c84';
 
       const clientsRoute = new ClientsRoute();

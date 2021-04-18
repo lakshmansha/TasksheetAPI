@@ -13,7 +13,7 @@ class ClientService {
   }
 
   public async findClientByCode(clientCode: string): Promise<Client> {
-    if (isEmpty(clientCode)) throw new HttpException(400, "You're not clientId");
+    if (isEmpty(clientCode)) throw new HttpException(400, "You're not clientCode");
 
     const findClient: Client = await this.clients.findOne({ clientCode: clientCode });
     if (!findClient) throw new HttpException(409, "You're not client");
