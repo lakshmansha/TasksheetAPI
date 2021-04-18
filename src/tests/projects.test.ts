@@ -17,21 +17,21 @@ describe('Testing Projects', () => {
       projects.find = jest.fn().mockReturnValue([
         {
           _id: 'qpwoeiruty',
-          clientId: 'CL001',
+          clientId: 'qpwoeiruty',
           projectCode: 'PL001',
           projectName: 'Web API',
           description: '',
         },
         {
           _id: 'alskdjfhg',
-          clientId: 'CL001',
+          clientId: 'qpwoeiruty',
           projectCode: 'PL002',
           projectName: 'Fincorp Tech',
           description: '',
         },
         {
           _id: 'zmxncbv',
-          clientId: 'CL001',
+          clientId: 'qpwoeiruty',
           projectCode: 'PL003',
           projectName: 'Test Tech',
           description: '',
@@ -53,7 +53,7 @@ describe('Testing Projects', () => {
 
       projects.findOne = jest.fn().mockReturnValue({
         _id: 'qpwoeiruty',
-        clientId: 'CL001',
+        clientId: 'qpwoeiruty',
         projectCode: 'PL001',
         projectName: 'Web API',
         description: '',
@@ -74,7 +74,7 @@ describe('Testing Projects', () => {
 
       projects.findOne = jest.fn().mockReturnValue({
         _id: 'qpwoeiruty',
-        clientId: 'CL001',
+        clientId: 'qpwoeiruty',
         projectCode: 'PL001',
         projectName: 'Web API',
         description: '',
@@ -89,7 +89,7 @@ describe('Testing Projects', () => {
   describe('[POST] /api/projects', () => {
     it('response Create Project', async () => {
       const projectData: CreateProjectDto = {
-        clientId: 'CL001',
+        clientId: 'qpwoeiruty',
         projectCode: 'PL001',
         projectName: 'Web Api',
         description: '',
@@ -117,7 +117,7 @@ describe('Testing Projects', () => {
     it('response Update Project', async () => {
       const projectId = '60706478aad6c9ad19a31c84';
       const projectData: CreateProjectDto = {
-        clientId: 'CL001',
+        clientId: 'qpwoeiruty',
         projectCode: 'PL001',
         projectName: 'Web Api',
         description: '',
@@ -157,7 +157,7 @@ describe('Testing Projects', () => {
 
       projects.findByIdAndDelete = jest.fn().mockReturnValue({
         _id: '60706478aad6c9ad19a31c84',
-        clientId: 'CL001',
+        clientId: 'qpwoeiruty',
         projectCode: 'PL001',
         projectName: 'Web Api',
         description: '',
