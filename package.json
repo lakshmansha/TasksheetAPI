@@ -1,7 +1,7 @@
 {
   "name": "tasksheet",
   "version": "0.0.0",
-  "description": "TypeScript + Mongoose + MongoDB + Express API Server",
+  "description": "App/Api for Task Sheet Web App",
   "author": "",
   "license": "ISC",
   "scripts": {
