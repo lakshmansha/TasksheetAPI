@@ -10,7 +10,7 @@ afterAll(async () => {
 });
 
 describe('Testing Users', () => {
-  describe('[GET] /users', () => {
+  describe('[GET] /api/users', () => {
     it('response fineAll Users', async () => {
       const usersRoute = new UsersRoute();
       const users = usersRoute.usersController.userService.users;
@@ -39,7 +39,7 @@ describe('Testing Users', () => {
     });
   });
 
-  describe('[GET] /users/:id', () => {
+  describe('[GET] /api/users/:id', () => {
     it('response findOne User', async () => {
       const userId = 'qpwoeiruty';
 
@@ -58,7 +58,7 @@ describe('Testing Users', () => {
     });
   });
 
-  describe('[POST] /users', () => {
+  describe('[POST] /api/users', () => {
     it('response Create User', async () => {
       const userData: CreateUserDto = {
         email: 'test@email.com',
@@ -81,7 +81,7 @@ describe('Testing Users', () => {
     });
   });
 
-  describe('[PUT] /users/:id', () => {
+  describe('[PUT] /api/users/:id', () => {
     it('response Update User', async () => {
       const userId = '60706478aad6c9ad19a31c84';
       const userData: CreateUserDto = {
@@ -112,7 +112,7 @@ describe('Testing Users', () => {
     });
   });
 
-  describe('[DELETE] /users/:id', () => {
+  describe('[DELETE] /api/users/:id', () => {
     it('response Delete User', async () => {
       const userId = '60706478aad6c9ad19a31c84';
 
