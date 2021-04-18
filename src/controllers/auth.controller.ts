@@ -1,4 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
+import { LocalStorage } from 'node-localstorage';
+
 import { CreateUserDto } from '@dtos/users.dto';
 import { RequestWithUser } from '@interfaces/auth.interface';
 import { User } from '@interfaces/users.interface';
@@ -23,6 +25,9 @@ class AuthController {
       const userData: CreateUserDto = req.body;
       const { cookie, findUser } = await this.authService.login(userData);
 
+      // const storage = this.getLocalStorage();
+      // storage.setItem(findUser.email, JSON.stringify(findUser));
+
       res.setHeader('Set-Cookie', [cookie]);
       res.status(200).json({ data: findUser, message: 'login' });
     } catch (error) {
@@ -39,6 +44,14 @@ class AuthController {
       res.status(200).json({ data: logOutUserData, message: 'logout' });
     } catch (error) {
       next(error);
+    }
+  };
+
+  private getLocalStorage = () => {
+    if (typeof localStorage === 'undefined') {
+      return new LocalStorage('./userStorage');
+    } else {
+      return localStorage;
     }
   };
 }

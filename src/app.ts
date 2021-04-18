@@ -1,5 +1,6 @@
 process.env['NODE_CONFIG_DIR'] = __dirname + '/configs';
 
+import path from 'path';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
@@ -30,6 +31,7 @@ class App {
     this.initializeRoutes(routes);
     this.initializeSwagger();
     this.initializeErrorHandling();
+    this.initializeViews();
   }
 
   public listen() {
@@ -68,6 +70,13 @@ class App {
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(cookieParser());
+  }
+
+  private initializeViews() {
+    this.app.set('view engine', 'ejs');
+    this.app.set('views', path.join(__dirname, './views'));
+    this.app.locals.siteName = 'TaskSheet';
+    this.app.use(express.static(path.join(__dirname, './public')));
   }
 
   private initializeRoutes(routes: Routes[]) {

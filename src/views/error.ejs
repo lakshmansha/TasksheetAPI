@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <title>An error occured</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/css/error.css" />
+  </head>
+  <body>
+    <div class="d-flex justify-content-center align-items-center" id="main">
+      <h1 class="mr-3 pr-3 align-top border-right inner-block align-content-center">
+        <%= status %>
+      </h1>
+      <div class="inner-block align-middle">
+        <h2 class="font-weight-normal lead" id="desc"><%= message %></h2>
+      </div>
+    </div>
+  </body>
+</html>

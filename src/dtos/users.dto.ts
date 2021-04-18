@@ -6,4 +6,6 @@ export class CreateUserDto {
 
   @IsString()
   public password: string;
+
+  // public rememberMe: boolean;
 }
