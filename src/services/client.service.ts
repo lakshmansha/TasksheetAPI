@@ -1,4 +1,3 @@
-import bcrypt from 'bcrypt';
 import { CreateClientDto } from '@dtos/clients.dto';
 import HttpException from '@exceptions/HttpException';
 import { Client } from '@interfaces/clients.interface';
