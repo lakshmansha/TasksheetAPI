@@ -46,11 +46,11 @@ class ClientService {
     if (isEmpty(clientData)) throw new HttpException(400, "You're not clientData");
 
     if (clientData.clientCode) {
-      const findClient: Client = await this.clients.findOne({ email: clientData.clientCode });
+      const findClient: Client = await this.clients.findOne({ clientCode: clientData.clientCode });
       if (findClient && findClient._id != clientId) throw new HttpException(409, `You're Client Code ${clientData.clientCode} already exists`);
     }
 
-    const updateClientById: Client = await this.clients.findByIdAndUpdate(clientId, { clientData });
+    const updateClientById: Client = await this.clients.findByIdAndUpdate(clientId, clientData);
     if (!updateClientById) throw new HttpException(409, "You're not client");
 
     return updateClientById;
