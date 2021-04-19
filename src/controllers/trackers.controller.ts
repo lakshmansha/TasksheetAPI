@@ -18,9 +18,10 @@ class TrackersController {
 
   public getTrackersByUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const findAllTrackersData: Tracker[] = await this.trackerService.findAllTracker();
+      const user: string = req.params.user;
+      const findAllTrackersData: Tracker[] = await this.trackerService.findTrackerByUser(user);
 
-      res.status(200).json({ data: findAllTrackersData, message: 'findAll' });
+      res.status(200).json({ data: findAllTrackersData, message: 'findByUser' });
     } catch (error) {
       next(error);
     }
@@ -42,6 +43,18 @@ class TrackersController {
       const trackerId: string = req.params.id;
       const trackerData: CreateTrackerDto = req.body;
       const updateTrackerData: Tracker = await this.trackerService.CheckOut(trackerId, trackerData);
+
+      res.status(200).json({ data: updateTrackerData, message: 'updated' });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public UpdateTracker = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const trackerId: string = req.params.id;
+      const trackerData: CreateTrackerDto = req.body;
+      const updateTrackerData: Tracker = await this.trackerService.UpdateNotes(trackerId, trackerData);
 
       res.status(200).json({ data: updateTrackerData, message: 'updated' });
     } catch (error) {

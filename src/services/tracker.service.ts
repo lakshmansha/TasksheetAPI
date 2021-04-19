@@ -14,13 +14,13 @@ class TrackerService {
     return trackers;
   }
 
-  public async findTrackerByUser(user: string): Promise<Tracker> {
+  public async findTrackerByUser(user: string): Promise<Tracker[]> {
     if (isEmpty(user)) throw new HttpException(400, "You're not user");
 
-    const findTracker: Tracker = await this.trackers.findOne({ createBy: user });
-    if (!findTracker) throw new HttpException(409, "You're not tracker");
+    const findTrackers: Tracker[] = await this.trackers.find({ createBy: user });
+    if (!findTrackers) throw new HttpException(409, "You're not trackers");
 
-    return findTracker;
+    return findTrackers;
   }
 
   public async CheckIn(trackerData: CreateTrackerDto): Promise<Tracker> {
@@ -35,7 +35,7 @@ class TrackerService {
         $lte: moment(today).endOf('day').toDate(),
       },
     });
-    if (findTracker) throw new HttpException(409, `You're Tracker ${trackerData.taskId} already exists`);
+    if (findTracker) throw new HttpException(409, `You're Tracker Check-In already exists`);
 
     trackerData.checkIn = new Date();
     const createTrackerData: Tracker = await this.trackers.create({ ...trackerData });
@@ -75,7 +75,7 @@ class TrackerService {
 
   public async deleteTracker(trackerId: string): Promise<Tracker> {
     const deleteTrackerById: Tracker = await this.trackers.findByIdAndDelete(trackerId);
-    if (!deleteTrackerById) throw new HttpException(409, "You're not task");
+    if (!deleteTrackerById) throw new HttpException(409, "You're not tracker");
 
     return deleteTrackerById;
   }
