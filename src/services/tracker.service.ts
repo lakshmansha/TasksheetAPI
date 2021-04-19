@@ -34,6 +34,7 @@ class TrackerService {
         $gte: today.toDate(),
         $lte: moment(today).endOf('day').toDate(),
       },
+      checkOut: undefined,
     });
     if (findTracker) throw new HttpException(409, `You're Tracker Check-In already exists`);
 
@@ -49,7 +50,8 @@ class TrackerService {
     const findTracker: Tracker = await this.trackers.findOne({ _id: trackerId });
     if (!findTracker) throw new HttpException(409, `You're Tracker not exists`);
 
-    if (findTracker.checkIn !== undefined) throw new HttpException(409, `You're Check-In Time not exists`);
+    if (findTracker.checkIn === undefined) throw new HttpException(409, `You're Check-In Time not exists`);
+    if (findTracker.checkOut !== undefined) throw new HttpException(409, `You're Check-Out Time already exists`);
 
     trackerData.checkOut = new Date();
     const checkOutById: Tracker = await this.trackers.findByIdAndUpdate(trackerId, trackerData);
@@ -64,8 +66,8 @@ class TrackerService {
     const findTracker: Tracker = await this.trackers.findOne({ _id: trackerId });
     if (!findTracker) throw new HttpException(409, `You're Tracker not exists`);
 
-    if (findTracker.checkIn !== undefined) throw new HttpException(409, `You're Check-In Time not exists`);
-    if (findTracker.checkOut !== undefined) throw new HttpException(409, `You're Check-In Time not exists`);
+    if (findTracker.checkIn === undefined) throw new HttpException(409, `You're Check-In Time not exists`);
+    if (findTracker.checkOut === undefined) throw new HttpException(409, `You're Check-In Time not exists`);
 
     const updateNotesById: Tracker = await this.trackers.findByIdAndUpdate(trackerId, trackerData);
     if (!updateNotesById) throw new HttpException(409, "You're not Tracker");

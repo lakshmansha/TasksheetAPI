@@ -11,6 +11,7 @@ import UsersRoute from '@routes/users.route';
 import ClientsRoute from '@routes/clients.route';
 import ProjectsRoute from '@routes/projects.route';
 import TasksRoute from '@routes/tasks.route';
+import TrackersRoute from '@routes/trackers.route';
 
 import IndexPageRoute from '@routes/page/index.page.route';
 import LoginPageRoute from '@routes/page/login.page.route';
@@ -26,6 +27,7 @@ Routes.push(new AuthRoute());
 Routes.push(new ClientsRoute());
 Routes.push(new ProjectsRoute());
 Routes.push(new TasksRoute());
+Routes.push(new TrackersRoute());
 
 // Page Routes
 Routes.push(new IndexPageRoute());

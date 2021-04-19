@@ -4,7 +4,7 @@ export interface Task {
   trackingCode: string;
   taskType: string;
   taskName: string;
-  reportedAt: string;
+  reportedAt: Date;
   resource: string;
   estimatedHrs: number;
   status: string;

@@ -14,7 +14,7 @@ export class CreateTaskDto {
   public taskName: string;
 
   @IsNotEmpty()
-  public reportedAt: string;
+  public reportedAt: Date;
 
   @IsString()
   public resource: string;

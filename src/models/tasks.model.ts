@@ -20,7 +20,7 @@ const taskSchema: Schema = new Schema(
       required: true,
     },
     reportedAt: {
-      type: SchemaTypes.String,
+      type: SchemaTypes.Date,
       required: true,
     },
     resource: {

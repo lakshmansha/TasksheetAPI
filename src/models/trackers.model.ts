@@ -37,8 +37,6 @@ const trackerSchema: Schema = new Schema(
   },
 );
 
-trackerSchema.index({ projectId: 1, trackingCode: 1 });
-
 const trackerModel = model<Tracker & Document>('Tracker', trackerSchema);
 
 export default trackerModel;
