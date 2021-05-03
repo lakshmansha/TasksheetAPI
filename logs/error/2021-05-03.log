@@ -1,0 +1,10 @@
+2021-05-03 21:36:18 error: [GET] /api/clients/607da8b813e6ed32f012dd1d >> StatusCode:: 409, Message:: You're not client
+2021-05-03 21:36:47 error: [GET] /api/clients/search/INV >> StatusCode:: 409, Message:: You're not client
+2021-05-03 21:37:12 error: [DELETE] /api/clients/607c32b73859180d54096e96 >> StatusCode:: 409, Message:: You're not client
+2021-05-03 21:37:49 error: [PUT] /api/clients/607c32b73859180d54096e96 >> StatusCode:: 400, Message:: You're not clientData
+2021-05-03 21:39:33 error: [PUT] /api/clients/607c32b73859180d54096e96 >> StatusCode:: 409, Message:: You're not client
+2021-05-03 21:40:21 error: [POST] /api/clients >> StatusCode:: 400, Message:: clientCode must be a string, clientName must be a string
+2021-05-03 21:47:52 error: [POST] /api/auth/signup >> StatusCode:: 400, Message:: email must be an email, password must be a string
+2021-05-03 21:49:04 error: [POST] /api/auth/login >> StatusCode:: 400, Message:: email must be an email, password must be a string
+2021-05-03 21:49:30 error: [POST] /api/auth/login >> StatusCode:: 409, Message:: You're password not matching
+2021-05-03 21:51:17 error: [POST] /api/auth/logout >> StatusCode:: 404, Message:: Authentication token missing

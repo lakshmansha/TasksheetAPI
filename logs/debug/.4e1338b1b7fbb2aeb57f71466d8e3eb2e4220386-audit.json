@@ -1,0 +1,14 @@
+{
+    "keep": {
+        "days": false,
+        "amount": 30
+    },
+    "auditLog": "E:\\Lakshman_IP\\ISV@Lazh\\TaskSheet\\Source\\TaskSheetApi\\logs\\debug\\.4e1338b1b7fbb2aeb57f71466d8e3eb2e4220386-audit.json",
+    "files": [
+        {
+            "date": 1620057947100,
+            "name": "E:\\Lakshman_IP\\ISV@Lazh\\TaskSheet\\Source\\TaskSheetApi\\logs\\debug\\2021-05-03.log",
+            "hash": "e3777a11b84596736c68c77cfaf1eb43"
+        }
+    ]
+}

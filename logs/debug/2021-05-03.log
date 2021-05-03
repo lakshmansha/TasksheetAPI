@@ -1,0 +1,38 @@
+2021-05-03 21:35:51 info: =================================
+2021-05-03 21:35:51 info: ======= ENV: development =======
+2021-05-03 21:35:51 info: 🚀 App listening on the port 3000
+2021-05-03 21:35:51 info: =================================
+2021-05-03 21:35:57 info: [0mGET /api/clients [32m200[0m 103.812 ms - 31[0m
+2021-05-03 21:36:18 error: [GET] /api/clients/607da8b813e6ed32f012dd1d >> StatusCode:: 409, Message:: You're not client
+2021-05-03 21:36:18 info: [0mGET /api/clients/607da8b813e6ed32f012dd1d [33m409[0m 45.555 ms - 31[0m
+2021-05-03 21:36:47 error: [GET] /api/clients/search/INV >> StatusCode:: 409, Message:: You're not client
+2021-05-03 21:36:47 info: [0mGET /api/clients/search/INV [33m409[0m 40.113 ms - 31[0m
+2021-05-03 21:37:12 error: [DELETE] /api/clients/607c32b73859180d54096e96 >> StatusCode:: 409, Message:: You're not client
+2021-05-03 21:37:12 info: [0mDELETE /api/clients/607c32b73859180d54096e96 [33m409[0m 45.120 ms - 31[0m
+2021-05-03 21:37:49 error: [PUT] /api/clients/607c32b73859180d54096e96 >> StatusCode:: 400, Message:: You're not clientData
+2021-05-03 21:37:49 info: [0mPUT /api/clients/607c32b73859180d54096e96 [33m400[0m 38.369 ms - 35[0m
+2021-05-03 21:38:18 info: [0mPUT /api/clients [33m404[0m 12.882 ms - 150[0m
+2021-05-03 21:38:25 info: [0mPUT /api/clients/ [33m404[0m 2.472 ms - 151[0m
+2021-05-03 21:39:18 info: [0mPUT /api/clients/ [33m404[0m 263.093 ms - 151[0m
+2021-05-03 21:39:33 error: [PUT] /api/clients/607c32b73859180d54096e96 >> StatusCode:: 409, Message:: You're not client
+2021-05-03 21:39:33 info: [0mPUT /api/clients/607c32b73859180d54096e96 [33m409[0m 112.717 ms - 31[0m
+2021-05-03 21:40:21 error: [POST] /api/clients >> StatusCode:: 400, Message:: clientCode must be a string, clientName must be a string
+2021-05-03 21:40:21 info: [0mPOST /api/clients [33m400[0m 12.176 ms - 70[0m
+2021-05-03 21:40:47 info: [0mPOST /api/clients [32m201[0m 135.981 ms - 203[0m
+2021-05-03 21:41:08 info: [0mGET /api/clients [32m200[0m 27.356 ms - 205[0m
+2021-05-03 21:41:31 info: [0mGET /api/clients/6090208733e2300f70443c90 [32m200[0m 30.409 ms - 203[0m
+2021-05-03 21:41:43 info: [0mGET /api/clients/search/INV [32m200[0m 23.534 ms - 203[0m
+2021-05-03 21:42:07 info: [0mPUT /api/clients/6090208733e2300f70443c90 [32m200[0m 33.991 ms - 203[0m
+2021-05-03 21:42:32 info: [0mDELETE /api/clients/6090208733e2300f70443c90 [32m200[0m 24.512 ms - 203[0m
+2021-05-03 21:42:50 info: [0mGET /api/clients [32m200[0m 20.179 ms - 31[0m
+2021-05-03 21:47:52 error: [POST] /api/auth/signup >> StatusCode:: 400, Message:: email must be an email, password must be a string
+2021-05-03 21:47:52 info: [0mPOST /api/auth/signup [33m400[0m 9.635 ms - 63[0m
+2021-05-03 21:48:38 info: [0mPOST /api/auth/signup [32m201[0m 411.252 ms - 255[0m
+2021-05-03 21:49:04 error: [POST] /api/auth/login >> StatusCode:: 400, Message:: email must be an email, password must be a string
+2021-05-03 21:49:04 info: [0mPOST /api/auth/login [33m400[0m 11.028 ms - 63[0m
+2021-05-03 21:49:30 error: [POST] /api/auth/login >> StatusCode:: 409, Message:: You're password not matching
+2021-05-03 21:49:30 info: [0mPOST /api/auth/login [33m409[0m 390.525 ms - 42[0m
+2021-05-03 21:49:54 info: [0mPOST /api/auth/login [32m200[0m 551.370 ms - 254[0m
+2021-05-03 21:51:17 error: [POST] /api/auth/logout >> StatusCode:: 404, Message:: Authentication token missing
+2021-05-03 21:51:17 info: [0mPOST /api/auth/logout [33m404[0m 5.044 ms - 42[0m
+2021-05-03 21:51:42 info: [0mPOST /api/auth/logout [32m200[0m 51.832 ms - 255[0m
