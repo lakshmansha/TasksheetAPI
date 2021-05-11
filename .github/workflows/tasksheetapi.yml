@@ -58,5 +58,5 @@ jobs:
         app-name: tasksheetapi
         slot-name: Production
         publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_BE226D11330D4CB1A6FC08B6F7CBE55C }}
-        package: .
+        package: package
 
