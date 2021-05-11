@@ -12,7 +12,7 @@ EXPOSE 3000
 # Dvelopment build stage
 FROM common-build-stage as development-build-stage
 
-ENV NODE_ENV development
+ENV NODE_ENV docker
 
 CMD ["npm", "run", "dev"]
 

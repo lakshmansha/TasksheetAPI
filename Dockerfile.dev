@@ -15,7 +15,7 @@ RUN  npm install;
 # Copy the client application source files. You can use .dockerignore to exlcude files. Works just as .gitignore does.
 COPY ./ /usr/src/app
 # Open port 4200. This is the port that our development server uses
-EXPOSE 8000
+EXPOSE 3000
 
 ENV NODE_ENV docker
 

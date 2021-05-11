@@ -6,7 +6,7 @@ Create an Network for Docker with below Command:
 
 ```powershell
 
-docker network create tasksheet-api
+docker network create tasksheet
 
 ```
 
@@ -17,7 +17,7 @@ Created Run the Mongo Container with mapping the created network using below Com
 ```powershell
 
 docker pull mongo
-docker run --network tasksheet-api --network-alias mssql --name mongodb -p 37017:27017 -d mongo
+docker run --network tasksheet --network-alias mssql --name mongodb -p 37017:27017 -d mongo
 
 ```
 
@@ -27,8 +27,8 @@ Created Run the API Container with mapping the created network using below Comma
 
 ```powershell
 
-docker build -f Dockerfile.Dev -t tasksheetapi:dev .
-docker run --network tasksheet-api -it --rm -p 8001:8000 -v ${PWD}/src:/usr/src --name tasksheetapi tasksheetapi:dev
+docker build -f Dockerfile.dev -t tasksheetapi:dev .
+docker run --network tasksheet -it --rm -p 8001:8000 -v ${PWD}/src:/usr/src --name tasksheetapi tasksheetapi:dev
 
 ```
 

@@ -1,9 +1,0 @@
-{
-    "env": "development",
-    "dbConfig": {
-        "host": "localhost",
-        "database": "tasksheet-dev",
-        "port": 37017
-    },
-    "secretKey": "secretKey"
-}
