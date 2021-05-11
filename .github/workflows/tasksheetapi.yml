@@ -31,26 +31,8 @@ jobs:
     - name: create package folder
       run: |
         mkdir package
-        
-    - name: Copy file
-      # You may pin to the exact commit or the version.
-      # uses: canastro/copy-action@7ddff6fc153a2ea2cd0fb88ed9750544c051e399
-      uses: canastro/copy-action@0.0.2
-      with:
-        # Source file
-        source: "package.json"
-        # Target file
-        target: "package/package.json"
-
-    - name: Copy Directory
-      # You may pin to the exact commit or the version.
-      # uses: MadaraUchiha/copy-action@7ddff6fc153a2ea2cd0fb88ed9750544c051e399
-      uses: MadaraUchiha/copy-action@0.0.1
-      with:
-        # Source folder
-        source: "dist"
-        # Target folder
-        target:  "package/dist" 
+        cp "package.json" "package/package.json"
+        cp -R "dist" "package/dist"   
 
     - name: Run Azure webapp deploy action using publish profile credentials
       uses: azure/webapps-deploy@v2
