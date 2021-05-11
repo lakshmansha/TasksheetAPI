@@ -32,7 +32,9 @@ jobs:
       run: |
         mkdir package
         cp "package.json" "package/package.json"
+        cp "swagger.yaml" "package/swagger.yaml"
         cp -R "dist" "package/dist"   
+        cp ".deployment" "package/.deployment"
 
     - name: Run Azure webapp deploy action using publish profile credentials
       uses: azure/webapps-deploy@v2
