@@ -7,9 +7,9 @@
   "scripts": {
     "start:dev": "cross-env NODE_ENV=development webpack --config webpack.config.js",
     "run:dev": "cross-env NODE_ENV=development nodemon dist/server.js",
-    "start": "cross-env NODE_ENV=development nodemon",
-    "docker": "cross-env NODE_ENV=docker nodemon",
+    "start": "set NODE_ENV=production && node dist/server.js",
     "build": "cross-env NODE_ENV=production webpack --config webpack.prod.config.js",
+    "docker": "cross-env NODE_ENV=docker nodemon",
     "dev": "cross-env NODE_ENV=development nodemon",
     "test": "jest --forceExit --detectOpenHandles",
     "lint": "eslint --ignore-path .gitignore --ext .ts src/",

@@ -10,7 +10,7 @@ const authMiddleware = async (req: RequestWithUser, res: Response, next: NextFun
     const cookies = req.cookies;
 
     if (cookies && cookies.Authorization) {
-      const secretKey: string = config.get('secretKey');
+      const secretKey: string = process.env.SECRETKEY;
       const verificationResponse = (await jwt.verify(cookies.Authorization, secretKey)) as DataStoredInToken;
       const userId = verificationResponse._id;
       const findUser = await userModel.findById(userId);

@@ -50,6 +50,8 @@ class App {
       set('debug', true);
     }
 
+    logger.info(`---${process.env.MONGO_URI}---`);
+
     connect(dbConnection.url, dbConnection.options);
   }
 
