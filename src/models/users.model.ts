@@ -12,6 +12,10 @@ const userSchema: Schema = new Schema(
       type: SchemaTypes.String,
       required: true,
     },
+    username: {
+      type: SchemaTypes.String,
+      required: false,
+    },
   },
   {
     timestamps: true,

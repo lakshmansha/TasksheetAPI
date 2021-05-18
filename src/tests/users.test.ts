@@ -20,16 +20,19 @@ describe('Testing Users', () => {
           _id: 'qpwoeiruty',
           email: 'a@email.com',
           password: await bcrypt.hash('q1w2e3r4!', 10),
+          username: 'test-a',
         },
         {
           _id: 'alskdjfhg',
           email: 'b@email.com',
           password: await bcrypt.hash('a1s2d3f4!', 10),
+          username: 'test-b',
         },
         {
           _id: 'zmxncbv',
           email: 'c@email.com',
           password: await bcrypt.hash('z1x2c3v4!', 10),
+          username: 'test-c',
         },
       ]);
 
@@ -50,6 +53,7 @@ describe('Testing Users', () => {
         _id: 'qpwoeiruty',
         email: 'a@email.com',
         password: await bcrypt.hash('q1w2e3r4!', 10),
+        username: 'test',
       });
 
       (mongoose as any).connect = jest.fn();
@@ -63,6 +67,7 @@ describe('Testing Users', () => {
       const userData: CreateUserDto = {
         email: 'test@email.com',
         password: 'q1w2e3r4',
+        username: 'test',
       };
 
       const usersRoute = new UsersRoute();
@@ -73,6 +78,7 @@ describe('Testing Users', () => {
         _id: '60706478aad6c9ad19a31c84',
         email: userData.email,
         password: await bcrypt.hash(userData.password, 10),
+        username: userData.username,
       });
 
       (mongoose as any).connect = jest.fn();
@@ -87,6 +93,7 @@ describe('Testing Users', () => {
       const userData: CreateUserDto = {
         email: 'test@email.com',
         password: 'q1w2e3r4',
+        username: 'test',
       };
 
       const usersRoute = new UsersRoute();
@@ -97,6 +104,7 @@ describe('Testing Users', () => {
           _id: userId,
           email: userData.email,
           password: await bcrypt.hash(userData.password, 10),
+          username: userData.username,
         });
       }
 
@@ -123,6 +131,7 @@ describe('Testing Users', () => {
         _id: '60706478aad6c9ad19a31c84',
         email: 'test@email.com',
         password: await bcrypt.hash('q1w2e3r4!', 10),
+        username: 'test',
       });
 
       (mongoose as any).connect = jest.fn();

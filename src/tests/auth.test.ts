@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import mongoose from 'mongoose';
 import request from 'supertest';
 import App from '@app';
-import { CreateUserDto } from '@dtos/users.dto';
+import { CreateUserDto, AuthUserDto } from '@dtos/users.dto';
 import AuthRoute from '@routes/auth.route';
 
 import 'dotenv/config';
@@ -17,6 +17,7 @@ describe('Testing Auth', () => {
       const userData: CreateUserDto = {
         email: 'test@email.com',
         password: 'q1w2e3r4!',
+        username: 'test',
       };
 
       const authRoute = new AuthRoute();
@@ -27,6 +28,7 @@ describe('Testing Auth', () => {
         _id: '60706478aad6c9ad19a31c84',
         email: userData.email,
         password: await bcrypt.hash(userData.password, 10),
+        username: 'test',
       });
 
       (mongoose as any).connect = jest.fn();
@@ -37,7 +39,7 @@ describe('Testing Auth', () => {
 
   describe('[POST] /api/auth/login', () => {
     it('response should have the Set-Cookie header with the Authorization token', async () => {
-      const userData: CreateUserDto = {
+      const userData: AuthUserDto = {
         email: 'test@email.com',
         password: 'q1w2e3r4!',
       };
@@ -49,6 +51,7 @@ describe('Testing Auth', () => {
         _id: '60706478aad6c9ad19a31c84',
         email: userData.email,
         password: await bcrypt.hash(userData.password, 10),
+        username: 'test',
       });
 
       (mongoose as any).connect = jest.fn();

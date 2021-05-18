@@ -1,0 +1,25 @@
+#  Create a new image from the base nodejs 7 image.
+FROM node:14.14.0-alpine3.12
+# Create the target directory in the image
+RUN mkdir -p /usr/src/app
+# Set the created directory as the working directory
+WORKDIR /usr/src/app
+# Copy the package.json inside the working directory
+COPY ./package.json /usr/src/app
+# Install required dependencies
+#RUN npm install -g @angular/cli
+
+#npm cache clean;
+RUN  npm install;
+
+# Copy the client application source files. You can use .dockerignore to exlcude files. Works just as .gitignore does.
+COPY ./ /usr/src/app
+
+RUN  npm run yml:build;
+# Open port 4200. This is the port that our development server uses
+EXPOSE 3000
+
+ENV NODE_ENV docker
+
+# Start the application. This is the same as running ng serve.
+CMD ["npm", "run", "start"]
