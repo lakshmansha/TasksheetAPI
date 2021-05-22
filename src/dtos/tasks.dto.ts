@@ -13,6 +13,9 @@ export class CreateTaskDto {
   @IsString()
   public taskName: string;
 
+  @IsString()
+  public description: string;
+
   @IsNotEmpty()
   public reportedAt: Date;
 

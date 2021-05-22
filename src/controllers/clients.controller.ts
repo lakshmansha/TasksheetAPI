@@ -43,7 +43,7 @@ class ClientsController {
       const clientData: CreateClientDto = req.body;
       const createClientData: Client = await this.clientService.createClient(clientData);
 
-      res.status(201).json({ data: createClientData, message: 'created' });
+      res.status(201).json({ data: createClientData, message: 'Client Created Successfuly' });
     } catch (error) {
       next(error);
     }
@@ -55,7 +55,7 @@ class ClientsController {
       const clientData: CreateClientDto = req.body;
       const updateClientData: Client = await this.clientService.updateClient(clientId, clientData);
 
-      res.status(200).json({ data: updateClientData, message: 'updated' });
+      res.status(200).json({ data: updateClientData, message: 'Client Updated Successfully' });
     } catch (error) {
       next(error);
     }
@@ -66,7 +66,7 @@ class ClientsController {
       const clientId: string = req.params.id;
       const deleteClientData: Client = await this.clientService.deleteClient(clientId);
 
-      res.status(200).json({ data: deleteClientData, message: 'deleted' });
+      res.status(200).json({ data: deleteClientData, message: 'Client Deleted Succesfully' });
     } catch (error) {
       next(error);
     }

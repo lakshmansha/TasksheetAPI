@@ -43,7 +43,7 @@ class TasksController {
       const taskData: CreateTaskDto = req.body;
       const createTaskData: Task = await this.taskService.createTask(taskData);
 
-      res.status(201).json({ data: createTaskData, message: 'created' });
+      res.status(201).json({ data: createTaskData, message: 'Task Created Successfully' });
     } catch (error) {
       next(error);
     }
@@ -55,7 +55,7 @@ class TasksController {
       const taskData: CreateTaskDto = req.body;
       const updateTaskData: Task = await this.taskService.updateTask(taskId, taskData);
 
-      res.status(200).json({ data: updateTaskData, message: 'updated' });
+      res.status(200).json({ data: updateTaskData, message: 'Task Updated Successfully' });
     } catch (error) {
       next(error);
     }
@@ -66,7 +66,7 @@ class TasksController {
       const taskId: string = req.params.id;
       const deleteTaskData: Task = await this.taskService.deleteTask(taskId);
 
-      res.status(200).json({ data: deleteTaskData, message: 'deleted' });
+      res.status(200).json({ data: deleteTaskData, message: 'Task Deleted Successfully' });
     } catch (error) {
       next(error);
     }

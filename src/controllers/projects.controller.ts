@@ -43,7 +43,7 @@ class ProjectsController {
       const projectData: CreateProjectDto = req.body;
       const createProjectData: Project = await this.projectService.createProject(projectData);
 
-      res.status(201).json({ data: createProjectData, message: 'created' });
+      res.status(201).json({ data: createProjectData, message: 'Project Created Successfully' });
     } catch (error) {
       next(error);
     }
@@ -55,7 +55,7 @@ class ProjectsController {
       const projectData: CreateProjectDto = req.body;
       const updateProjectData: Project = await this.projectService.updateProject(projectId, projectData);
 
-      res.status(200).json({ data: updateProjectData, message: 'updated' });
+      res.status(200).json({ data: updateProjectData, message: 'Project Updated Successfully' });
     } catch (error) {
       next(error);
     }
@@ -66,7 +66,7 @@ class ProjectsController {
       const projectId: string = req.params.id;
       const deleteProjectData: Project = await this.projectService.deleteProject(projectId);
 
-      res.status(200).json({ data: deleteProjectData, message: 'deleted' });
+      res.status(200).json({ data: deleteProjectData, message: 'Project Deleted Successfully' });
     } catch (error) {
       next(error);
     }

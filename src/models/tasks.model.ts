@@ -19,6 +19,10 @@ const taskSchema: Schema = new Schema(
       type: SchemaTypes.String,
       required: true,
     },
+    description: {
+      type: SchemaTypes.String,
+      required: true,
+    },
     reportedAt: {
       type: SchemaTypes.Date,
       required: true,
