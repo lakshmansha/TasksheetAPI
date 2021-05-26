@@ -3,6 +3,7 @@ import request from 'supertest';
 import App from '@app';
 import { CreateClientDto } from '@dtos/clients.dto';
 import ClientsRoute from '@routes/clients.route';
+import { authMethod } from './common';
 
 afterAll(async () => {
   await new Promise<void>(resolve => setTimeout(() => resolve(), 500));
@@ -14,6 +15,7 @@ describe('Testing Clients', () => {
       const clientsRoute = new ClientsRoute();
       const clients = clientsRoute.clientsController.clientService.clients;
 
+      await authMethod(clientsRoute);
       clients.find = jest.fn().mockReturnValue([
         {
           _id: 'qpwoeiruty',
@@ -34,7 +36,7 @@ describe('Testing Clients', () => {
 
       (mongoose as any).connect = jest.fn();
       const app = new App([clientsRoute]);
-      return request(app.getServer()).get(`${clientsRoute.path}`).expect(200);
+      return request(app.getServer()).get(`${clientsRoute.path}`).set('Cookie', ['Authorization=eyJhbGciOiJIUzI1NiIs;']).expect(200);
     });
   });
 
@@ -45,6 +47,7 @@ describe('Testing Clients', () => {
       const clientsRoute = new ClientsRoute();
       const clients = clientsRoute.clientsController.clientService.clients;
 
+      await authMethod(clientsRoute);
       clients.findOne = jest.fn().mockReturnValue({
         _id: 'qpwoeiruty',
         clientCode: 'CL001',
@@ -53,7 +56,10 @@ describe('Testing Clients', () => {
 
       (mongoose as any).connect = jest.fn();
       const app = new App([clientsRoute]);
-      return request(app.getServer()).get(`${clientsRoute.path}/search/${clientCode}`).expect(200);
+      return request(app.getServer())
+        .get(`${clientsRoute.path}/search/${clientCode}`)
+        .set('Cookie', ['Authorization=eyJhbGciOiJIUzI1NiIs;'])
+        .expect(200);
     });
   });
 
@@ -64,6 +70,7 @@ describe('Testing Clients', () => {
       const clientsRoute = new ClientsRoute();
       const clients = clientsRoute.clientsController.clientService.clients;
 
+      await authMethod(clientsRoute);
       clients.findOne = jest.fn().mockReturnValue({
         _id: 'qpwoeiruty',
         clientCode: 'CL001',
@@ -72,7 +79,7 @@ describe('Testing Clients', () => {
 
       (mongoose as any).connect = jest.fn();
       const app = new App([clientsRoute]);
-      return request(app.getServer()).get(`${clientsRoute.path}/${clientId}`).expect(200);
+      return request(app.getServer()).get(`${clientsRoute.path}/${clientId}`).set('Cookie', ['Authorization=eyJhbGciOiJIUzI1NiIs;']).expect(200);
     });
   });
 
@@ -86,6 +93,7 @@ describe('Testing Clients', () => {
       const clientsRoute = new ClientsRoute();
       const clients = clientsRoute.clientsController.clientService.clients;
 
+      await authMethod(clientsRoute);
       clients.findOne = jest.fn().mockReturnValue(null);
       clients.create = jest.fn().mockReturnValue({
         _id: '60706478aad6c9ad19a31c84',
@@ -95,7 +103,11 @@ describe('Testing Clients', () => {
 
       (mongoose as any).connect = jest.fn();
       const app = new App([clientsRoute]);
-      return request(app.getServer()).post(`${clientsRoute.path}`).send(clientData).expect(201);
+      return request(app.getServer())
+        .post(`${clientsRoute.path}`)
+        .set('Cookie', ['Authorization=eyJhbGciOiJIUzI1NiIs;'])
+        .send(clientData)
+        .expect(201);
     });
   });
 
@@ -110,6 +122,7 @@ describe('Testing Clients', () => {
       const clientsRoute = new ClientsRoute();
       const clients = clientsRoute.clientsController.clientService.clients;
 
+      await authMethod(clientsRoute);
       if (clientData.clientCode) {
         clients.findOne = jest.fn().mockReturnValue({
           _id: clientId,
@@ -126,7 +139,7 @@ describe('Testing Clients', () => {
 
       (mongoose as any).connect = jest.fn();
       const app = new App([clientsRoute]);
-      return request(app.getServer()).put(`${clientsRoute.path}/${clientId}`).send(clientData);
+      return request(app.getServer()).put(`${clientsRoute.path}/${clientId}`).set('Cookie', ['Authorization=eyJhbGciOiJIUzI1NiIs;']).send(clientData);
     });
   });
 
@@ -137,15 +150,17 @@ describe('Testing Clients', () => {
       const clientsRoute = new ClientsRoute();
       const clients = clientsRoute.clientsController.clientService.clients;
 
+      await authMethod(clientsRoute);
       clients.findByIdAndDelete = jest.fn().mockReturnValue({
         _id: '60706478aad6c9ad19a31c84',
         clientCode: 'CL001',
         clientName: 'Tech Val',
+        ownedBy: '34j38794243nksejhkq2k3h',
       });
 
       (mongoose as any).connect = jest.fn();
       const app = new App([clientsRoute]);
-      return request(app.getServer()).delete(`${clientsRoute.path}/${clientId}`).expect(200);
+      return request(app.getServer()).delete(`${clientsRoute.path}/${clientId}`).set('Cookie', ['Authorization=eyJhbGciOiJIUzI1NiIs;']).expect(200);
     });
   });
 });

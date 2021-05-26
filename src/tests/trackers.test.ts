@@ -3,6 +3,7 @@ import request from 'supertest';
 import App from '@app';
 import { CreateTrackerDto } from '@dtos/trackers.dto';
 import TrackersRoute from '@routes/trackers.route';
+import { authMethod } from './common';
 
 afterAll(async () => {
   await new Promise<void>(resolve => setTimeout(() => resolve(), 500));
@@ -14,6 +15,7 @@ describe('Testing Trackers', () => {
       const trackersRoute = new TrackersRoute();
       const trackers = trackersRoute.trackersController.trackerService.trackers;
 
+      await authMethod(trackersRoute);
       trackers.find = jest.fn().mockReturnValue([
         {
           _id: 'qpwoeirutytracker',
@@ -39,7 +41,7 @@ describe('Testing Trackers', () => {
 
       (mongoose as any).connect = jest.fn();
       const app = new App([trackersRoute]);
-      return request(app.getServer()).get(`${trackersRoute.path}`).expect(200);
+      return request(app.getServer()).get(`${trackersRoute.path}`).set('Cookie', ['Authorization=eyJhbGciOiJIUzI1NiIs;']).expect(200);
     });
   });
 
@@ -50,6 +52,7 @@ describe('Testing Trackers', () => {
       const trackersRoute = new TrackersRoute();
       const trackers = trackersRoute.trackersController.trackerService.trackers;
 
+      await authMethod(trackersRoute);
       trackers.findOne = jest.fn().mockReturnValue([
         {
           _id: 'alskdjfhg',
@@ -65,7 +68,7 @@ describe('Testing Trackers', () => {
 
       (mongoose as any).connect = jest.fn();
       const app = new App([trackersRoute]);
-      return request(app.getServer()).get(`${trackersRoute.path}/${user}`).expect(200);
+      return request(app.getServer()).get(`${trackersRoute.path}/${user}`).set('Cookie', ['Authorization=eyJhbGciOiJIUzI1NiIs;']).expect(200);
     });
   });
 
@@ -84,6 +87,7 @@ describe('Testing Trackers', () => {
       const trackersRoute = new TrackersRoute();
       const trackers = trackersRoute.trackersController.trackerService.trackers;
 
+      await authMethod(trackersRoute);
       trackers.findOne = jest.fn().mockReturnValue(null);
       trackers.create = jest.fn().mockReturnValue({
         _id: '60706478aad6c9ad19a31c84',
@@ -98,7 +102,11 @@ describe('Testing Trackers', () => {
 
       (mongoose as any).connect = jest.fn();
       const app = new App([trackersRoute]);
-      return request(app.getServer()).post(`${trackersRoute.path}/checkin`).send(trackerData).expect(201);
+      return request(app.getServer())
+        .post(`${trackersRoute.path}/checkin`)
+        .set('Cookie', ['Authorization=eyJhbGciOiJIUzI1NiIs;'])
+        .send(trackerData)
+        .expect(201);
     });
   });
 
@@ -118,6 +126,7 @@ describe('Testing Trackers', () => {
       const trackersRoute = new TrackersRoute();
       const trackers = trackersRoute.trackersController.trackerService.trackers;
 
+      await authMethod(trackersRoute);
       if (trackerData.taskId) {
         trackers.findOne = jest.fn().mockReturnValue({
           _id: trackerId,
@@ -144,7 +153,10 @@ describe('Testing Trackers', () => {
 
       (mongoose as any).connect = jest.fn();
       const app = new App([trackersRoute]);
-      return request(app.getServer()).put(`${trackersRoute.path}/checkout/${trackerId}`).send(trackerData);
+      return request(app.getServer())
+        .put(`${trackersRoute.path}/checkout/${trackerId}`)
+        .set('Cookie', ['Authorization=eyJhbGciOiJIUzI1NiIs;'])
+        .send(trackerData);
     });
   });
 
@@ -164,6 +176,7 @@ describe('Testing Trackers', () => {
       const trackersRoute = new TrackersRoute();
       const trackers = trackersRoute.trackersController.trackerService.trackers;
 
+      await authMethod(trackersRoute);
       if (trackerData.taskId) {
         trackers.findOne = jest.fn().mockReturnValue({
           _id: trackerId,
@@ -190,7 +203,10 @@ describe('Testing Trackers', () => {
 
       (mongoose as any).connect = jest.fn();
       const app = new App([trackersRoute]);
-      return request(app.getServer()).put(`${trackersRoute.path}/update/${trackerId}`).send(trackerData);
+      return request(app.getServer())
+        .put(`${trackersRoute.path}/update/${trackerId}`)
+        .set('Cookie', ['Authorization=eyJhbGciOiJIUzI1NiIs;'])
+        .send(trackerData);
     });
   });
 
@@ -201,13 +217,14 @@ describe('Testing Trackers', () => {
       const trackersRoute = new TrackersRoute();
       const trackers = trackersRoute.trackersController.trackerService.trackers;
 
+      await authMethod(trackersRoute);
       trackers.findByIdAndDelete = jest.fn().mockReturnValue({
         _id: '60706478aad6c9ad58631c84',
       });
 
       (mongoose as any).connect = jest.fn();
       const app = new App([trackersRoute]);
-      return request(app.getServer()).delete(`${trackersRoute.path}/${trackerId}`).expect(200);
+      return request(app.getServer()).delete(`${trackersRoute.path}/${trackerId}`).set('Cookie', ['Authorization=eyJhbGciOiJIUzI1NiIs;']).expect(200);
     });
   });
 });

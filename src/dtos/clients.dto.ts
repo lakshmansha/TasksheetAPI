@@ -1,4 +1,4 @@
-import { IsString } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 
 export class CreateClientDto {
   @IsString()
@@ -6,4 +6,7 @@ export class CreateClientDto {
 
   @IsString()
   public clientName: string;
+
+  @IsOptional()
+  public ownedBy?: string;
 }

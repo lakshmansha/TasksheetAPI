@@ -63,26 +63,29 @@ describe('Testing Auth', () => {
     });
   });
 
-  // describe('[POST] /api/auth/logout', () => {
-  //   it('logout Set-Cookie Authorization=; Max-age=0', async () => {
-  //     const userData: User = {
-  //       _id: '60706478aad6c9ad19a31c84',
-  //       email: 'test@email.com',
-  //       password: await bcrypt.hash('q1w2e3r4!', 10),
-  //     };
+  describe('[POST] /api/auth/logout', () => {
+    it('logout Set-Cookie Authorization=; Max-age=0', async () => {
+      const authRoute = new AuthRoute();
+      const users = authRoute.authController.authService.users;
+      const middleware = authRoute.authMiddleware;
 
-  //     const authRoute = new AuthRoute();
-  //     const users = authRoute.authController.authService.users;
+      const userData = {
+        _id: '60706478aad6c9ad19a31c84',
+        email: 'test@email.com',
+        password: await bcrypt.hash('q1w2e3r4!', 10),
+        username: 'test',
+      };
 
-  //     users.findOne = jest.fn().mockReturnValue(userData);
+      middleware.validateUser = jest.fn().mockReturnValue(userData);
 
-  //     (mongoose as any).connect = jest.fn();
-  //     const app = new App([authRoute]);
-  //     return request(app.getServer())
-  //       .post(`${authRoute.path}logout`)
-  //       .send(userData)
-  //       .set('Set-Cookie', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ')
-  //       .expect('Set-Cookie', /^Authorization=\; Max-age=0/);
-  //   });
-  // });
+      users.findOne = jest.fn().mockReturnValue(userData);
+
+      (mongoose as any).connect = jest.fn();
+      const app = new App([authRoute]);
+      return request(app.getServer())
+        .post(`${authRoute.path}logout`)
+        .set('Cookie', ['Authorization=eyJhbGciOiJIUzI1NiIs;'])
+        .expect('Set-Cookie', /^Authorization=\; Max-age=0/);
+    });
+  });
 });

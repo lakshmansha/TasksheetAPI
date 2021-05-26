@@ -39,13 +39,17 @@ const taskSchema: Schema = new Schema(
       type: SchemaTypes.String,
       required: true,
     },
+    ownedBy: {
+      type: SchemaTypes.String,
+      required: true,
+    },
   },
   {
     timestamps: true,
   },
 );
 
-taskSchema.index({ projectId: 1, trackingCode: 1 });
+taskSchema.index({ projectId: 1, trackingCode: 1, ownedBy: 1 });
 
 const taskModel = model<Task & Document>('Task', taskSchema);
 

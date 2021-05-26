@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from 'express';
-import { LocalStorage } from 'node-localstorage';
 
 import { CreateUserDto } from '@dtos/users.dto';
 import { RequestWithUser } from '@interfaces/auth.interface';
@@ -46,14 +45,6 @@ class AuthController {
       res.status(200).json({ data: logOutUserData, message: 'Logout Successfully' });
     } catch (error) {
       next(error);
-    }
-  };
-
-  private getLocalStorage = () => {
-    if (typeof localStorage === 'undefined') {
-      return new LocalStorage('./userStorage');
-    } else {
-      return localStorage;
     }
   };
 }

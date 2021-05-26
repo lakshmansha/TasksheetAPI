@@ -8,7 +8,8 @@ class ProjectsController {
 
   public getProjects = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const findAllProjectsData: Project[] = await this.projectService.findAllProject();
+      const userId = req['userId'];
+      const findAllProjectsData: Project[] = await this.projectService.findAllProject(userId);
 
       res.status(200).json({ data: findAllProjectsData, message: 'findAll' });
     } catch (error) {
@@ -19,7 +20,8 @@ class ProjectsController {
   public getProjectById = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const projectId: string = req.params.id;
-      const findOneProjectData: Project = await this.projectService.findProjectById(projectId);
+      const userId = req['userId'];
+      const findOneProjectData: Project = await this.projectService.findProjectById(userId, projectId);
 
       res.status(200).json({ data: findOneProjectData, message: 'findOne' });
     } catch (error) {
@@ -30,7 +32,8 @@ class ProjectsController {
   public getProjectByCode = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const projectCode: string = req.params.code;
-      const findOneProjectData: Project = await this.projectService.findProjectByCode(projectCode);
+      const userId = req['userId'];
+      const findOneProjectData: Project = await this.projectService.findProjectByCode(userId, projectCode);
 
       res.status(200).json({ data: findOneProjectData, message: 'findOne' });
     } catch (error) {
@@ -41,6 +44,7 @@ class ProjectsController {
   public createProject = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const projectData: CreateProjectDto = req.body;
+      projectData.ownedBy = req['userId'];
       const createProjectData: Project = await this.projectService.createProject(projectData);
 
       res.status(201).json({ data: createProjectData, message: 'Project Created Successfully' });
@@ -53,6 +57,7 @@ class ProjectsController {
     try {
       const projectId: string = req.params.id;
       const projectData: CreateProjectDto = req.body;
+      projectData.ownedBy = req['userId'];
       const updateProjectData: Project = await this.projectService.updateProject(projectId, projectData);
 
       res.status(200).json({ data: updateProjectData, message: 'Project Updated Successfully' });
@@ -64,7 +69,8 @@ class ProjectsController {
   public deleteProject = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const projectId: string = req.params.id;
-      const deleteProjectData: Project = await this.projectService.deleteProject(projectId);
+      const userId = req['userId'];
+      const deleteProjectData: Project = await this.projectService.deleteProject(userId, projectId);
 
       res.status(200).json({ data: deleteProjectData, message: 'Project Deleted Successfully' });
     } catch (error) {

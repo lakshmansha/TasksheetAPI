@@ -18,13 +18,17 @@ const projectSchema: Schema = new Schema(
     description: {
       type: SchemaTypes.String,
     },
+    ownedBy: {
+      type: SchemaTypes.String,
+      required: true,
+    },
   },
   {
     timestamps: true,
   },
 );
 
-projectSchema.index({ clientId: 1, projectCode: 1 });
+projectSchema.index({ clientId: 1, projectCode: 1, ownedBy: 1 });
 
 const projectModel = model<Project & Document>('Project', projectSchema);
 

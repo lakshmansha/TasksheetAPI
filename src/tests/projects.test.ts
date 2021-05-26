@@ -3,6 +3,7 @@ import request from 'supertest';
 import App from '@app';
 import { CreateProjectDto } from '@dtos/projects.dto';
 import ProjectsRoute from '@routes/projects.route';
+import { authMethod } from './common';
 
 afterAll(async () => {
   await new Promise<void>(resolve => setTimeout(() => resolve(), 500));
@@ -14,6 +15,7 @@ describe('Testing Projects', () => {
       const projectsRoute = new ProjectsRoute();
       const projects = projectsRoute.projectsController.projectService.projects;
 
+      await authMethod(projectsRoute);
       projects.find = jest.fn().mockReturnValue([
         {
           _id: 'qpwoeiruty',
@@ -40,7 +42,7 @@ describe('Testing Projects', () => {
 
       (mongoose as any).connect = jest.fn();
       const app = new App([projectsRoute]);
-      return request(app.getServer()).get(`${projectsRoute.path}`).expect(200);
+      return request(app.getServer()).get(`${projectsRoute.path}`).set('Cookie', ['Authorization=eyJhbGciOiJIUzI1NiIs;']).expect(200);
     });
   });
 
@@ -51,6 +53,7 @@ describe('Testing Projects', () => {
       const projectsRoute = new ProjectsRoute();
       const projects = projectsRoute.projectsController.projectService.projects;
 
+      await authMethod(projectsRoute);
       projects.findOne = jest.fn().mockReturnValue({
         _id: 'qpwoeiruty',
         clientId: 'qpwoeiruty',
@@ -61,7 +64,10 @@ describe('Testing Projects', () => {
 
       (mongoose as any).connect = jest.fn();
       const app = new App([projectsRoute]);
-      return request(app.getServer()).get(`${projectsRoute.path}/search/${projectCode}`).expect(200);
+      return request(app.getServer())
+        .get(`${projectsRoute.path}/search/${projectCode}`)
+        .set('Cookie', ['Authorization=eyJhbGciOiJIUzI1NiIs;'])
+        .expect(200);
     });
   });
 
@@ -72,6 +78,7 @@ describe('Testing Projects', () => {
       const projectsRoute = new ProjectsRoute();
       const projects = projectsRoute.projectsController.projectService.projects;
 
+      await authMethod(projectsRoute);
       projects.findOne = jest.fn().mockReturnValue({
         _id: 'qpwoeiruty',
         clientId: 'qpwoeiruty',
@@ -82,7 +89,7 @@ describe('Testing Projects', () => {
 
       (mongoose as any).connect = jest.fn();
       const app = new App([projectsRoute]);
-      return request(app.getServer()).get(`${projectsRoute.path}/${projectId}`).expect(200);
+      return request(app.getServer()).get(`${projectsRoute.path}/${projectId}`).set('Cookie', ['Authorization=eyJhbGciOiJIUzI1NiIs;']).expect(200);
     });
   });
 
@@ -98,6 +105,7 @@ describe('Testing Projects', () => {
       const projectsRoute = new ProjectsRoute();
       const projects = projectsRoute.projectsController.projectService.projects;
 
+      await authMethod(projectsRoute);
       projects.findOne = jest.fn().mockReturnValue(null);
       projects.create = jest.fn().mockReturnValue({
         _id: '60706478aad6c9ad19a31c84',
@@ -109,7 +117,11 @@ describe('Testing Projects', () => {
 
       (mongoose as any).connect = jest.fn();
       const app = new App([projectsRoute]);
-      return request(app.getServer()).post(`${projectsRoute.path}`).send(projectData).expect(201);
+      return request(app.getServer())
+        .post(`${projectsRoute.path}`)
+        .send(projectData)
+        .set('Cookie', ['Authorization=eyJhbGciOiJIUzI1NiIs;'])
+        .expect(201);
     });
   });
 
@@ -126,6 +138,7 @@ describe('Testing Projects', () => {
       const projectsRoute = new ProjectsRoute();
       const projects = projectsRoute.projectsController.projectService.projects;
 
+      await authMethod(projectsRoute);
       if (projectData.projectCode) {
         projects.findOne = jest.fn().mockReturnValue({
           _id: projectId,
@@ -144,7 +157,10 @@ describe('Testing Projects', () => {
 
       (mongoose as any).connect = jest.fn();
       const app = new App([projectsRoute]);
-      return request(app.getServer()).put(`${projectsRoute.path}/${projectId}`).send(projectData);
+      return request(app.getServer())
+        .put(`${projectsRoute.path}/${projectId}`)
+        .set('Cookie', ['Authorization=eyJhbGciOiJIUzI1NiIs;'])
+        .send(projectData);
     });
   });
 
@@ -155,6 +171,7 @@ describe('Testing Projects', () => {
       const projectsRoute = new ProjectsRoute();
       const projects = projectsRoute.projectsController.projectService.projects;
 
+      await authMethod(projectsRoute);
       projects.findByIdAndDelete = jest.fn().mockReturnValue({
         _id: '60706478aad6c9ad19a31c84',
         clientId: 'qpwoeiruty',
@@ -165,7 +182,7 @@ describe('Testing Projects', () => {
 
       (mongoose as any).connect = jest.fn();
       const app = new App([projectsRoute]);
-      return request(app.getServer()).delete(`${projectsRoute.path}/${projectId}`).expect(200);
+      return request(app.getServer()).delete(`${projectsRoute.path}/${projectId}`).set('Cookie', ['Authorization=eyJhbGciOiJIUzI1NiIs;']).expect(200);
     });
   });
 });

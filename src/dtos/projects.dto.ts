@@ -1,4 +1,4 @@
-import { IsString } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 
 export class CreateProjectDto {
   @IsString()
@@ -12,4 +12,7 @@ export class CreateProjectDto {
 
   @IsString()
   public description: string;
+
+  @IsOptional()
+  public ownedBy?: string;
 }

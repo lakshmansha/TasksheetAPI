@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CreateTaskDto {
   @IsString()
@@ -27,4 +27,7 @@ export class CreateTaskDto {
 
   @IsString()
   public status: string;
+
+  @IsOptional()
+  public ownedBy?: string;
 }

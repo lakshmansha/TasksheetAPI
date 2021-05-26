@@ -4,6 +4,7 @@ import request from 'supertest';
 import App from '@app';
 import { CreateUserDto } from '@dtos/users.dto';
 import UsersRoute from '@routes/users.route';
+import { authMethod } from './common';
 
 afterAll(async () => {
   await new Promise<void>(resolve => setTimeout(() => resolve(), 500));
@@ -15,6 +16,7 @@ describe('Testing Users', () => {
       const usersRoute = new UsersRoute();
       const users = usersRoute.usersController.userService.users;
 
+      await authMethod(usersRoute);
       users.find = jest.fn().mockReturnValue([
         {
           _id: 'qpwoeiruty',
@@ -38,7 +40,7 @@ describe('Testing Users', () => {
 
       (mongoose as any).connect = jest.fn();
       const app = new App([usersRoute]);
-      return request(app.getServer()).get(`${usersRoute.path}`).expect(200);
+      return request(app.getServer()).get(`${usersRoute.path}`).set('Cookie', ['Authorization=eyJhbGciOiJIUzI1NiIs;']).expect(200);
     });
   });
 
@@ -49,6 +51,7 @@ describe('Testing Users', () => {
       const usersRoute = new UsersRoute();
       const users = usersRoute.usersController.userService.users;
 
+      await authMethod(usersRoute);
       users.findOne = jest.fn().mockReturnValue({
         _id: 'qpwoeiruty',
         email: 'a@email.com',
@@ -58,7 +61,7 @@ describe('Testing Users', () => {
 
       (mongoose as any).connect = jest.fn();
       const app = new App([usersRoute]);
-      return request(app.getServer()).get(`${usersRoute.path}/${userId}`).expect(200);
+      return request(app.getServer()).get(`${usersRoute.path}/${userId}`).set('Cookie', ['Authorization=eyJhbGciOiJIUzI1NiIs;']).expect(200);
     });
   });
 
@@ -73,6 +76,7 @@ describe('Testing Users', () => {
       const usersRoute = new UsersRoute();
       const users = usersRoute.usersController.userService.users;
 
+      await authMethod(usersRoute);
       users.findOne = jest.fn().mockReturnValue(null);
       users.create = jest.fn().mockReturnValue({
         _id: '60706478aad6c9ad19a31c84',
@@ -83,7 +87,7 @@ describe('Testing Users', () => {
 
       (mongoose as any).connect = jest.fn();
       const app = new App([usersRoute]);
-      return request(app.getServer()).post(`${usersRoute.path}`).send(userData).expect(201);
+      return request(app.getServer()).post(`${usersRoute.path}`).send(userData).set('Cookie', ['Authorization=eyJhbGciOiJIUzI1NiIs;']).expect(201);
     });
   });
 
@@ -99,6 +103,7 @@ describe('Testing Users', () => {
       const usersRoute = new UsersRoute();
       const users = usersRoute.usersController.userService.users;
 
+      await authMethod(usersRoute);
       if (userData.email) {
         users.findOne = jest.fn().mockReturnValue({
           _id: userId,
@@ -116,7 +121,11 @@ describe('Testing Users', () => {
 
       (mongoose as any).connect = jest.fn();
       const app = new App([usersRoute]);
-      return request(app.getServer()).put(`${usersRoute.path}/${userId}`).send(userData);
+      return request(app.getServer())
+        .put(`${usersRoute.path}/${userId}`)
+        .set('Cookie', ['Authorization=eyJhbGciOiJIUzI1NiIs;'])
+        .send(userData)
+        .expect(200);
     });
   });
 
@@ -127,6 +136,7 @@ describe('Testing Users', () => {
       const usersRoute = new UsersRoute();
       const users = usersRoute.usersController.userService.users;
 
+      await authMethod(usersRoute);
       users.findByIdAndDelete = jest.fn().mockReturnValue({
         _id: '60706478aad6c9ad19a31c84',
         email: 'test@email.com',
@@ -136,7 +146,7 @@ describe('Testing Users', () => {
 
       (mongoose as any).connect = jest.fn();
       const app = new App([usersRoute]);
-      return request(app.getServer()).delete(`${usersRoute.path}/${userId}`).expect(200);
+      return request(app.getServer()).delete(`${usersRoute.path}/${userId}`).set('Cookie', ['Authorization=eyJhbGciOiJIUzI1NiIs;']).expect(200);
     });
   });
 });

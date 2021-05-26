@@ -3,6 +3,7 @@ import request from 'supertest';
 import App from '@app';
 import { CreateTaskDto } from '@dtos/tasks.dto';
 import TasksRoute from '@routes/tasks.route';
+import { authMethod } from './common';
 
 afterAll(async () => {
   await new Promise<void>(resolve => setTimeout(() => resolve(), 500));
@@ -14,6 +15,7 @@ describe('Testing Tasks', () => {
       const tasksRoute = new TasksRoute();
       const tasks = tasksRoute.tasksController.taskService.tasks;
 
+      await authMethod(tasksRoute);
       tasks.find = jest.fn().mockReturnValue([
         {
           _id: 'qpwoeirutytask',
@@ -43,7 +45,7 @@ describe('Testing Tasks', () => {
 
       (mongoose as any).connect = jest.fn();
       const app = new App([tasksRoute]);
-      return request(app.getServer()).get(`${tasksRoute.path}`).expect(200);
+      return request(app.getServer()).get(`${tasksRoute.path}`).set('Cookie', ['Authorization=eyJhbGciOiJIUzI1NiIs;']).expect(200);
     });
   });
 
@@ -54,6 +56,7 @@ describe('Testing Tasks', () => {
       const tasksRoute = new TasksRoute();
       const tasks = tasksRoute.tasksController.taskService.tasks;
 
+      await authMethod(tasksRoute);
       tasks.findOne = jest.fn().mockReturnValue({
         _id: 'qpwoeirutytask',
         projectId: '60706478aad6c9ad19a31c84',
@@ -69,7 +72,7 @@ describe('Testing Tasks', () => {
 
       (mongoose as any).connect = jest.fn();
       const app = new App([tasksRoute]);
-      return request(app.getServer()).get(`${tasksRoute.path}/search/${taskCode}`).expect(200);
+      return request(app.getServer()).get(`${tasksRoute.path}/search/${taskCode}`).set('Cookie', ['Authorization=eyJhbGciOiJIUzI1NiIs;']).expect(200);
     });
   });
 
@@ -80,6 +83,7 @@ describe('Testing Tasks', () => {
       const tasksRoute = new TasksRoute();
       const tasks = tasksRoute.tasksController.taskService.tasks;
 
+      await authMethod(tasksRoute);
       tasks.findOne = jest.fn().mockReturnValue({
         _id: 'qpwoeirutytask',
         projectId: '60706478aad6c9ad19a31c84',
@@ -95,7 +99,7 @@ describe('Testing Tasks', () => {
 
       (mongoose as any).connect = jest.fn();
       const app = new App([tasksRoute]);
-      return request(app.getServer()).get(`${tasksRoute.path}/${taskId}`).expect(200);
+      return request(app.getServer()).get(`${tasksRoute.path}/${taskId}`).set('Cookie', ['Authorization=eyJhbGciOiJIUzI1NiIs;']).expect(200);
     });
   });
 
@@ -116,6 +120,7 @@ describe('Testing Tasks', () => {
       const tasksRoute = new TasksRoute();
       const tasks = tasksRoute.tasksController.taskService.tasks;
 
+      await authMethod(tasksRoute);
       tasks.findOne = jest.fn().mockReturnValue(null);
       tasks.create = jest.fn().mockReturnValue({
         _id: '60706478aad6c9ad19a31c84',
@@ -132,7 +137,7 @@ describe('Testing Tasks', () => {
 
       (mongoose as any).connect = jest.fn();
       const app = new App([tasksRoute]);
-      return request(app.getServer()).post(`${tasksRoute.path}`).send(taskData).expect(201);
+      return request(app.getServer()).post(`${tasksRoute.path}`).send(taskData).set('Cookie', ['Authorization=eyJhbGciOiJIUzI1NiIs;']).expect(201);
     });
   });
 
@@ -154,6 +159,7 @@ describe('Testing Tasks', () => {
       const tasksRoute = new TasksRoute();
       const tasks = tasksRoute.tasksController.taskService.tasks;
 
+      await authMethod(tasksRoute);
       if (taskData.trackingCode) {
         tasks.findOne = jest.fn().mockReturnValue({
           _id: taskId,
@@ -184,7 +190,11 @@ describe('Testing Tasks', () => {
 
       (mongoose as any).connect = jest.fn();
       const app = new App([tasksRoute]);
-      return request(app.getServer()).put(`${tasksRoute.path}/${taskId}`).send(taskData);
+      return request(app.getServer())
+        .put(`${tasksRoute.path}/${taskId}`)
+        .send(taskData)
+        .set('Cookie', ['Authorization=eyJhbGciOiJIUzI1NiIs;'])
+        .expect(200);
     });
   });
 
@@ -195,6 +205,7 @@ describe('Testing Tasks', () => {
       const tasksRoute = new TasksRoute();
       const tasks = tasksRoute.tasksController.taskService.tasks;
 
+      await authMethod(tasksRoute);
       tasks.findByIdAndDelete = jest.fn().mockReturnValue({
         _id: '60706478aad6c9ad58631c84',
         projectId: '60706478aad6c9ad19a31c84',
@@ -210,7 +221,7 @@ describe('Testing Tasks', () => {
 
       (mongoose as any).connect = jest.fn();
       const app = new App([tasksRoute]);
-      return request(app.getServer()).delete(`${tasksRoute.path}/${taskId}`).expect(200);
+      return request(app.getServer()).delete(`${tasksRoute.path}/${taskId}`).set('Cookie', ['Authorization=eyJhbGciOiJIUzI1NiIs;']).expect(200);
     });
   });
 });

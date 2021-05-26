@@ -6,9 +6,12 @@ const clientSchema: Schema = new Schema(
     clientCode: {
       type: SchemaTypes.String,
       required: true,
-      unique: true,
     },
     clientName: {
+      type: SchemaTypes.String,
+      required: true,
+    },
+    ownedBy: {
       type: SchemaTypes.String,
       required: true,
     },
@@ -17,6 +20,8 @@ const clientSchema: Schema = new Schema(
     timestamps: true,
   },
 );
+
+clientSchema.index({ clientCode: 1, ownedBy: 1 });
 
 const clientModel = model<Client & Document>('Client', clientSchema);
 
