@@ -23,8 +23,8 @@ describe('Testing Trackers', () => {
           checkIn: new Date(),
           checkOut: new Date(),
           workNotes: 'Working on API',
-          actualHrs: 5,
-          billableHrs: 4,
+          actualHrs: 300,
+          billableHrs: 240,
           createBy: 'Lakshman',
         },
         {
@@ -33,8 +33,8 @@ describe('Testing Trackers', () => {
           checkIn: new Date(),
           checkOut: new Date(),
           workNotes: 'Working on API',
-          actualHrs: 2.5,
-          billableHrs: 2.5,
+          actualHrs: 150,
+          billableHrs: 150,
           createBy: 'Lakshman',
         },
       ]);
@@ -45,7 +45,34 @@ describe('Testing Trackers', () => {
     });
   });
 
-  describe('[GET] /api/trackers/:user', () => {
+  describe('[GET] /api/trackers/:id', () => {
+    it('response find Tracker By Id', async () => {
+      const trackerId = 'alskdjfhg';
+
+      const trackersRoute = new TrackersRoute();
+      const trackers = trackersRoute.trackersController.trackerService.trackers;
+
+      await authMethod(trackersRoute);
+      trackers.findOne = jest.fn().mockReturnValue([
+        {
+          _id: 'alskdjfhg',
+          taskId: '60706478aad6c9ad19a31c84',
+          checkIn: new Date(),
+          checkOut: new Date(),
+          workNotes: 'Working on API',
+          actualHrs: 150,
+          billableHrs: 150,
+          createBy: 'Lakshman',
+        },
+      ]);
+
+      (mongoose as any).connect = jest.fn();
+      const app = new App([trackersRoute]);
+      return request(app.getServer()).get(`${trackersRoute.path}/${trackerId}`).set('Cookie', ['Authorization=eyJhbGciOiJIUzI1NiIs;']).expect(200);
+    });
+  });
+
+  describe('[GET] /api/trackers/search/:user', () => {
     it('response find Tracker By User', async () => {
       const user = 'Lakshman';
 
@@ -60,15 +87,15 @@ describe('Testing Trackers', () => {
           checkIn: new Date(),
           checkOut: new Date(),
           workNotes: 'Working on API',
-          actualHrs: 2.5,
-          billableHrs: 2.5,
+          actualHrs: 150,
+          billableHrs: 150,
           createBy: 'Lakshman',
         },
       ]);
 
       (mongoose as any).connect = jest.fn();
       const app = new App([trackersRoute]);
-      return request(app.getServer()).get(`${trackersRoute.path}/${user}`).set('Cookie', ['Authorization=eyJhbGciOiJIUzI1NiIs;']).expect(200);
+      return request(app.getServer()).get(`${trackersRoute.path}/search/${user}`).set('Cookie', ['Authorization=eyJhbGciOiJIUzI1NiIs;']).expect(200);
     });
   });
 
@@ -160,7 +187,46 @@ describe('Testing Trackers', () => {
     });
   });
 
-  describe('[PUT] /api/trackers/update/:id', () => {
+  describe('[POST] /api/trackers', () => {
+    it('response Create Tracker', async () => {
+      const trackerId = '60706478aad6c9ad58631c84';
+      const trackerData: CreateTrackerDto = {
+        taskId: '60706478aad6c9ad19a31c84',
+        checkIn: new Date(),
+        checkOut: new Date(),
+        workNotes: 'Working on Web API',
+        actualHrs: 140,
+        billableHrs: 140,
+        createBy: 'Lakshman',
+      };
+
+      const trackersRoute = new TrackersRoute();
+      const trackers = trackersRoute.trackersController.trackerService.trackers;
+
+      await authMethod(trackersRoute);
+
+      trackers.create = jest.fn().mockReturnValue({
+        _id: trackerId,
+        taskId: trackerData.taskId,
+        checkIn: trackerData.checkIn,
+        checkOut: trackerData.checkOut,
+        workNotes: trackerData.workNotes,
+        actualHrs: trackerData.actualHrs,
+        billableHrs: trackerData.billableHrs,
+        createBy: trackerData.createBy,
+      });
+
+      (mongoose as any).connect = jest.fn();
+      const app = new App([trackersRoute]);
+      return request(app.getServer())
+        .post(`${trackersRoute.path}/insert`)
+        .set('Cookie', ['Authorization=eyJhbGciOiJIUzI1NiIs;'])
+        .send(trackerData)
+        .expect(201);
+    });
+  });
+
+  describe('[PUT] /api/trackers/:id', () => {
     it('response Update Tracker', async () => {
       const trackerId = '60706478aad6c9ad58631c84';
       const trackerData: CreateTrackerDto = {
@@ -168,8 +234,8 @@ describe('Testing Trackers', () => {
         checkIn: new Date(),
         checkOut: new Date(),
         workNotes: 'Working on Web API',
-        actualHrs: 2,
-        billableHrs: 2,
+        actualHrs: 120,
+        billableHrs: 120,
         createBy: 'Lakshman',
       };
 
@@ -206,7 +272,8 @@ describe('Testing Trackers', () => {
       return request(app.getServer())
         .put(`${trackersRoute.path}/update/${trackerId}`)
         .set('Cookie', ['Authorization=eyJhbGciOiJIUzI1NiIs;'])
-        .send(trackerData);
+        .send(trackerData)
+        .expect(200);
     });
   });
 

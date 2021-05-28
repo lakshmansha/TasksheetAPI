@@ -9,15 +9,24 @@ import { isEmpty } from '@utils/util';
 class TrackerService {
   public trackers = trackersModel;
 
-  public async findAllTracker(): Promise<Tracker[]> {
-    const trackers: Tracker[] = await this.trackers.find();
+  public async findAllTracker(ownedBy: string): Promise<Tracker[]> {
+    const trackers: Tracker[] = await this.trackers.find({ ownedBy: ownedBy });
     return trackers;
   }
 
-  public async findTrackerByUser(user: string): Promise<Tracker[]> {
+  public async findTrackerById(ownedBy: string, trackerId: string): Promise<Tracker> {
+    if (isEmpty(trackerId)) throw new HttpException(400, "You're not trackerId");
+
+    const findTask: Tracker = await this.trackers.findOne({ ownedBy: ownedBy, _id: trackerId });
+    if (!findTask) throw new HttpException(409, "You're not tracker");
+
+    return findTask;
+  }
+
+  public async findTrackerByUser(ownedBy: string, user: string): Promise<Tracker[]> {
     if (isEmpty(user)) throw new HttpException(400, "You're not user");
 
-    const findTrackers: Tracker[] = await this.trackers.find({ createBy: user });
+    const findTrackers: Tracker[] = await this.trackers.find({ ownedBy: ownedBy, createBy: user });
     if (!findTrackers) throw new HttpException(409, "You're not trackers");
 
     return findTrackers;
@@ -30,6 +39,7 @@ class TrackerService {
 
     const findTracker: Tracker = await this.trackers.findOne({
       createBy: trackerData.createBy,
+      ownedBy: trackerData.ownedBy,
       checkIn: {
         $gte: today.toDate(),
         $lte: moment(today).endOf('day').toDate(),
@@ -47,7 +57,7 @@ class TrackerService {
   public async CheckOut(trackerId: string, trackerData: CreateTrackerDto): Promise<Tracker> {
     if (isEmpty(trackerData)) throw new HttpException(400, "You're not trackerData");
 
-    const findTracker: Tracker = await this.trackers.findOne({ _id: trackerId });
+    const findTracker: Tracker = await this.trackers.findOne({ ownedBy: trackerData.ownedBy, _id: trackerId });
     if (!findTracker) throw new HttpException(409, `You're Tracker not exists`);
 
     if (findTracker.checkIn === undefined) throw new HttpException(409, `You're Check-In Time not exists`);
@@ -60,10 +70,18 @@ class TrackerService {
     return checkOutById;
   }
 
+  public async CreateTracker(trackerData: CreateTrackerDto): Promise<Tracker> {
+    if (isEmpty(trackerData)) throw new HttpException(400, "You're not trackerData");
+
+    const createTaskData: Tracker = await this.trackers.create({ ...trackerData });
+
+    return createTaskData;
+  }
+
   public async UpdateNotes(trackerId: string, trackerData: CreateTrackerDto): Promise<Tracker> {
     if (isEmpty(trackerData)) throw new HttpException(400, "You're not trackerData");
 
-    const findTracker: Tracker = await this.trackers.findOne({ _id: trackerId });
+    const findTracker: Tracker = await this.trackers.findOne({ ownedBy: trackerData.ownedBy, _id: trackerId });
     if (!findTracker) throw new HttpException(409, `You're Tracker not exists`);
 
     if (findTracker.checkIn === undefined) throw new HttpException(409, `You're Check-In Time not exists`);
@@ -75,8 +93,8 @@ class TrackerService {
     return updateNotesById;
   }
 
-  public async deleteTracker(trackerId: string): Promise<Tracker> {
-    const deleteTrackerById: Tracker = await this.trackers.findByIdAndDelete(trackerId);
+  public async deleteTracker(ownedBy: string, trackerId: string): Promise<Tracker> {
+    const deleteTrackerById: Tracker = await this.trackers.findByIdAndDelete({ ownedBy: ownedBy, trackerId: trackerId });
     if (!deleteTrackerById) throw new HttpException(409, "You're not tracker");
 
     return deleteTrackerById;

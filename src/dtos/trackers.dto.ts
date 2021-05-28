@@ -19,6 +19,35 @@ export class CreateTrackerDto {
   @IsEmpty()
   public checkOut: Date;
 
-  @IsString()
+  @IsOptional()
   public createBy: string;
+
+  @IsOptional()
+  public ownedBy?: string;
+}
+
+export class InsertTrackerDto {
+  @IsString()
+  public taskId: string;
+
+  @IsOptional()
+  public workNotes: string;
+
+  @IsOptional()
+  public actualHrs: number;
+
+  @IsOptional()
+  public billableHrs: number;
+
+  @IsOptional()
+  public checkIn: Date;
+
+  @IsOptional()
+  public checkOut: Date;
+
+  @IsOptional()
+  public createBy: string;
+
+  @IsOptional()
+  public ownedBy?: string;
 }

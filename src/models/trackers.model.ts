@@ -31,6 +31,10 @@ const trackerSchema: Schema = new Schema(
       type: SchemaTypes.String,
       required: true,
     },
+    ownedBy: {
+      type: SchemaTypes.String,
+      required: true,
+    },
   },
   {
     timestamps: true,

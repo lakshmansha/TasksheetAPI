@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import TrackerController from '@controllers/trackers.controller';
-import { CreateTrackerDto } from '@dtos/trackers.dto';
+import { CreateTrackerDto, InsertTrackerDto } from '@dtos/trackers.dto';
 import Route from '@interfaces/routes.interface';
 import validationMiddleware from '@middlewares/validation.middleware';
 import AuthMiddleware from '@middlewares/auth.middleware';
@@ -17,7 +17,8 @@ class TrackersRoute implements Route {
 
   private initializeRoutes() {
     this.router.get(`${this.path}`, this.authMiddleware.validate, this.trackersController.getTrackers);
-    this.router.get(`${this.path}/:user`, this.authMiddleware.validate, this.trackersController.getTrackersByUser);
+    this.router.get(`${this.path}/:id`, this.authMiddleware.validate, this.trackersController.getTrackerById);
+    this.router.get(`${this.path}/search/:user`, this.authMiddleware.validate, this.trackersController.getTrackersByUser);
     this.router.post(
       `${this.path}/checkin`,
       this.authMiddleware.validate,
@@ -30,10 +31,16 @@ class TrackersRoute implements Route {
       validationMiddleware(CreateTrackerDto, 'body', true),
       this.trackersController.checkOutTracker,
     );
+    this.router.post(
+      `${this.path}/insert`,
+      this.authMiddleware.validate,
+      validationMiddleware(InsertTrackerDto, 'body'),
+      this.trackersController.createTracker,
+    );
     this.router.put(
       `${this.path}/update/:id`,
       this.authMiddleware.validate,
-      validationMiddleware(CreateTrackerDto, 'body', true),
+      validationMiddleware(InsertTrackerDto, 'body', true),
       this.trackersController.UpdateTracker,
     );
     this.router.delete(`${this.path}/:id`, this.authMiddleware.validate, this.trackersController.deleteTracker);
