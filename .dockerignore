@@ -16,3 +16,6 @@ jest.config.js
 # docker
 Dockerfile
 docker-compose.yml
+
+# Local Storage
+userStorage

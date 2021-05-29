@@ -1,5 +1,3 @@
-process.env['NODE_CONFIG_DIR'] = __dirname + '/configs';
-
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
@@ -49,6 +47,8 @@ class App {
     if (this.env !== 'production') {
       set('debug', true);
     }
+
+    logger.info(`---${process.env.MONGO_URI}---`);
 
     connect(dbConnection.url, dbConnection.options);
   }
