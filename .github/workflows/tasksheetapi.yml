@@ -38,9 +38,7 @@ jobs:
         mkdir package
         cp "package.json" "package/package.json"
         cp "swagger.yaml" "package/swagger.yaml"
-        cp -R "dist" "package/dist"   
-        npm install --production
-        npm install --save tblib
+        cp -R "dist" "package/dist"
 
     - name: Install Prod packages
       run: |         
