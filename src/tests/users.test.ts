@@ -53,7 +53,7 @@ describe('Testing Users', () => {
 
       await authMethod(usersRoute);
       users.findOne = jest.fn().mockReturnValue({
-        _id: 'qpwoeiruty',
+        _id: userId,
         email: 'a@email.com',
         password: await bcrypt.hash('q1w2e3r4!', 10),
         username: 'test',
@@ -61,7 +61,7 @@ describe('Testing Users', () => {
 
       (mongoose as any).connect = jest.fn();
       const app = new App([usersRoute]);
-      return request(app.getServer()).get(`${usersRoute.path}/${userId}`).set('Cookie', ['Authorization=eyJhbGciOiJIUzI1NiIs;']).expect(200);
+      return request(app.getServer()).get(`${usersRoute.path}/id`).set('Cookie', ['Authorization=eyJhbGciOiJIUzI1NiIs;']).expect(200);
     });
   });
 
@@ -121,11 +121,7 @@ describe('Testing Users', () => {
 
       (mongoose as any).connect = jest.fn();
       const app = new App([usersRoute]);
-      return request(app.getServer())
-        .put(`${usersRoute.path}/${userId}`)
-        .set('Cookie', ['Authorization=eyJhbGciOiJIUzI1NiIs;'])
-        .send(userData)
-        .expect(200);
+      return request(app.getServer()).put(`${usersRoute.path}`).set('Cookie', ['Authorization=eyJhbGciOiJIUzI1NiIs;']).send(userData).expect(200);
     });
   });
 
@@ -138,7 +134,7 @@ describe('Testing Users', () => {
 
       await authMethod(usersRoute);
       users.findByIdAndDelete = jest.fn().mockReturnValue({
-        _id: '60706478aad6c9ad19a31c84',
+        _id: userId,
         email: 'test@email.com',
         password: await bcrypt.hash('q1w2e3r4!', 10),
         username: 'test',
@@ -146,7 +142,7 @@ describe('Testing Users', () => {
 
       (mongoose as any).connect = jest.fn();
       const app = new App([usersRoute]);
-      return request(app.getServer()).delete(`${usersRoute.path}/${userId}`).set('Cookie', ['Authorization=eyJhbGciOiJIUzI1NiIs;']).expect(200);
+      return request(app.getServer()).delete(`${usersRoute.path}`).set('Cookie', ['Authorization=eyJhbGciOiJIUzI1NiIs;']).expect(200);
     });
   });
 });
