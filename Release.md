@@ -1,5 +1,9 @@
 # Release History
 
+## Version 1.1.1 - Date 12-07-2021
+
+- Bug: Fixed CI/CD Pipeline Test Case Issue.
+
 ## Version 1.1.0 - Date 12-07-2021
 
 - Feature: Added Profile & Updated User Service to Change Email, Password & Update Personal Info.
