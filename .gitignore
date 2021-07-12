@@ -3,3 +3,6 @@ logs
 userStorage
 dist
 *.env
+
+# Own Files
+coverage

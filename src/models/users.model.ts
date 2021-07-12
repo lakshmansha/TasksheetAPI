@@ -16,6 +16,14 @@ const userSchema: Schema = new Schema(
       type: SchemaTypes.String,
       required: false,
     },
+    designation: {
+      type: SchemaTypes.String,
+      required: false,
+    },
+    aboutMe: {
+      type: SchemaTypes.String,
+      required: false,
+    },
   },
   {
     timestamps: true,

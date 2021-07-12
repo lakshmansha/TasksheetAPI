@@ -10,7 +10,7 @@
     "start": "node dist/server.js",
     "build": "cross-env NODE_ENV=production webpack --config webpack.prod.config.js",
     "docker": "cross-env NODE_ENV=docker nodemon",    
-    "test": "jest --forceExit --detectOpenHandles",
+    "test": "jest --forceExit --detectOpenHandles --coverage",
     "lint": "eslint --ignore-path .gitignore --ext .ts src/",
     "lint:fix": "npm run lint -- --fix"
   },
