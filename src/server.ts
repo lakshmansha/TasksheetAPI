@@ -10,6 +10,7 @@ import ClientsRoute from '@routes/clients.route';
 import ProjectsRoute from '@routes/projects.route';
 import TasksRoute from '@routes/tasks.route';
 import TrackersRoute from '@routes/trackers.route';
+import ProfileRoute from '@routes/profile.route';
 
 validateEnv();
 
@@ -23,6 +24,7 @@ Routes.push(new ClientsRoute());
 Routes.push(new ProjectsRoute());
 Routes.push(new TasksRoute());
 Routes.push(new TrackersRoute());
+Routes.push(new ProfileRoute());
 
 const app = new App(Routes);
 

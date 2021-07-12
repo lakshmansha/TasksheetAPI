@@ -1,6 +1,6 @@
 {
   "name": "tasksheetapi",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Api for Task Sheet Web App",
   "author": "Lakshman.S",
   "license": "ISC",
@@ -10,7 +10,7 @@
     "start": "node dist/server.js",
     "build": "cross-env NODE_ENV=production webpack --config webpack.prod.config.js",
     "docker": "cross-env NODE_ENV=docker nodemon",    
-    "test": "jest --forceExit --detectOpenHandles",
+    "test": "jest --forceExit --detectOpenHandles --coverage",
     "lint": "eslint --ignore-path .gitignore --ext .ts src/",
     "lint:fix": "npm run lint -- --fix"
   },
