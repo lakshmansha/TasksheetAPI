@@ -11,6 +11,7 @@ import ProjectsRoute from '@routes/projects.route';
 import TasksRoute from '@routes/tasks.route';
 import TrackersRoute from '@routes/trackers.route';
 import ProfileRoute from '@routes/profile.route';
+import ReportsRoute from '@routes/reports.route';
 
 validateEnv();
 
@@ -25,6 +26,7 @@ Routes.push(new ProjectsRoute());
 Routes.push(new TasksRoute());
 Routes.push(new TrackersRoute());
 Routes.push(new ProfileRoute());
+Routes.push(new ReportsRoute());
 
 const app = new App(Routes);
 
