@@ -30,14 +30,16 @@ class ReportService {
 
         trackers.forEach(element => {
             const _report: Report = {} as Report;
-
-            _report.createdAt = element.checkIn;
+           
             const task = tasks.find((obj) => obj._id.toString() === element.taskId);
-            _report.taskName = task.taskName;
             const project = projects.find((obj) => obj._id.toString() === task.projectId);
+            
+            _report.createdAt = element.checkIn;
             _report.projectName = project.projectName;
+            _report.taskName = task.taskName;                                    
             _report.actualHrs = element.actualHrs;
             _report.billableHrs = element.billableHrs;
+            _report.workNotes = element.workNotes;
 
             report.push(_report);
         });
