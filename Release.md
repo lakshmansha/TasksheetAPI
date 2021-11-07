@@ -1,5 +1,9 @@
 # Release History
 
+## Version 1.2.0 - Date 17-11-2021
+
+- Feature: Added Reports Endpoint.
+
 ## Version 1.1.1 - Date 12-07-2021
 
 - Bug: Fixed CI/CD Pipeline Test Case Issue.
