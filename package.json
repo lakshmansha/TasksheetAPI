@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@sendgrid/mail": "^7.4.6",
+    "applicationinsights": "^2.1.9",
     "bcrypt": "^5.0.1",
     "class-transformer": "^0.4.0",
     "class-validator": "^0.13.1",
