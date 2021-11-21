@@ -1,5 +1,9 @@
 # Release History
 
+## Version 1.3.1 - Date 21-11-2021
+
+- HotFix: Pipeline Unit Test Issues Fixed.
+
 ## Version 1.3.0 - Date 21-11-2021
 
 - Feature: Added Application Insights For Monitoring.
