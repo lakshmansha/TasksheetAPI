@@ -1,6 +1,10 @@
 # Release History
 
-## Version 1.2.0 - Date 17-11-2021
+## Version 1.3.0 - Date 21-11-2021
+
+- Feature: Added Application Insights For Monitoring.
+
+## Version 1.2.0 - Date 07-11-2021
 
 - Feature: Added Reports Endpoint.
 
