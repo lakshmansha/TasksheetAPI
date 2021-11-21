@@ -17,3 +17,7 @@ export const isEmpty = (value: string | number | object): boolean => {
     return false;
   }
 };
+
+export const toBoolean = (val: string) => {
+  return val === 'true' ? true : false;
+};

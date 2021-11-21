@@ -12,6 +12,7 @@ import TasksRoute from '@routes/tasks.route';
 import TrackersRoute from '@routes/trackers.route';
 import ProfileRoute from '@routes/profile.route';
 import ReportsRoute from '@routes/reports.route';
+import { toBoolean } from '@utils/util';
 
 validateEnv();
 
@@ -29,5 +30,12 @@ Routes.push(new ProfileRoute());
 Routes.push(new ReportsRoute());
 
 const app = new App(Routes);
+
+const IsAppInsights = toBoolean(process.env.ISAPPINSIGHTS);
+
+
+if (IsAppInsights) {
+    app.initializeAppinsights();
+  }
 
 app.listen();

@@ -48,7 +48,7 @@ class App {
       set('debug', true);
     }
 
-    logger.info(`---${process.env.MONGO_URI}---`);
+    logger.debug(`---${process.env.MONGO_URI}---`);
 
     connect(dbConnection.url, dbConnection.options);
   }
@@ -73,6 +73,16 @@ class App {
   private initializeRoutes(routes: Routes[]) {
     routes.forEach(route => {
       this.app.use('/', route.router);
+    });
+  }
+
+  public initializeAppinsights() {
+    // App Insights Initialization
+    const appInsights = require('applicationinsights');
+    appInsights.setup(process.env.INSTRUMENTATIONKEY).start();
+    appInsights.defaultClient.addTelemetryProcessor(envelope => {
+      envelope.tags['ai.cloud.role'] = process.env.APP_NAME;
+      envelope.tags['ai.cloud.roleInstance'] = process.env.APP_NAME;
     });
   }
 

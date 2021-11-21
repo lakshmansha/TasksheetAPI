@@ -3,6 +3,7 @@ logs
 userStorage
 dist
 *.env
+!sample.env
 
 # Own Files
 coverage
