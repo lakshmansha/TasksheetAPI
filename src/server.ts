@@ -13,6 +13,7 @@ import TrackersRoute from '@routes/trackers.route';
 import ProfileRoute from '@routes/profile.route';
 import ReportsRoute from '@routes/reports.route';
 import { toBoolean } from '@utils/util';
+import DashboardRoute from '@routes/dashboard.route';
 
 validateEnv();
 
@@ -28,6 +29,7 @@ Routes.push(new TasksRoute());
 Routes.push(new TrackersRoute());
 Routes.push(new ProfileRoute());
 Routes.push(new ReportsRoute());
+Routes.push(new DashboardRoute());
 
 const app = new App(Routes);
 
