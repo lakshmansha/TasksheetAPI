@@ -1,5 +1,9 @@
 # Release History
 
+## Version 1.4.0 - Date 07-01-2022
+
+- Feature: Added Dashboard Endpoint.
+
 ## Version 1.3.1 - Date 21-11-2021
 
 - HotFix: Pipeline Unit Test Issues Fixed.
